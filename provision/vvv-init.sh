@@ -2,8 +2,8 @@
 # Provision WordPress Stable
 
 # fetch the first host as the primary domain. If none is available, generate a default using the site name
-DOMAIN=`get_primary_host loc."${VVV_SITE_NAME}"`
-SITE_TITLE=`get_config_value 'site_title' "${DOMAIN}"`
+DOMAIN='loc.akhbaralaan.net'
+SITE_TITLE='akhbaralaan.net'
 WP_VERSION=`get_config_value 'wp_version' 'latest'`
 WP_TYPE=`get_config_value 'wp_type' "single"`
 DB_NAME='alaantv_sites'
@@ -21,8 +21,8 @@ touch ${VVV_PATH_TO_SITE}/log/nginx-access.log
 
 # Install and configure the latest stable version of WordPress
 if [[ ! -f "${VVV_PATH_TO_SITE}/public_html/wp-load.php" ]]; then
-    echo "Downloading WordPress..."
-    git clone https://github.com/abazeed/alaantv.git
+  echo "Downloading WordPress..."
+  noroot wp core download --version="${WP_VERSION}"
 fi
 
 if [[ ! -f "${VVV_PATH_TO_SITE}/public_html/wp-config.php" ]]; then
@@ -31,7 +31,6 @@ if [[ ! -f "${VVV_PATH_TO_SITE}/public_html/wp-config.php" ]]; then
 define( 'WP_DEBUG', true );
 define( 'SCRIPT_DEBUG', true );
 define( 'WP_ALLOW_MULTISITE', true );
-
 PHP
 fi
 
